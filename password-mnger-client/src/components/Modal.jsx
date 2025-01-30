@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 
-const Modal = ({ setIsModalOpen, addPassword }) => {
+const Modal = ({ setIsModalOpen, addPassword, genPassword }) => {
   const [title, setTitle] = useState('');
   const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+  const [password, setPassword] = useState(genPassword || '');
 
   const handleSubmit = (e) => {
     e.preventDefault();
