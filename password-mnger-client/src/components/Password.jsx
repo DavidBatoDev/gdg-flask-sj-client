@@ -2,11 +2,13 @@ import { useState } from 'react';
 import SearchBar from "./SearchBar.jsx";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
+import Modal from './Modal.jsx';
 
 const Password = () => {
   const [visiblePasswordIds, setVisiblePasswordIds] = useState([]);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const passwords = [
+  const [passwords, setPasswords] = useState([
     { id: 1, title: 'Email', username: 'user@example.com', password: 'password123' },
     { id: 2, title: 'Bank', username: 'user@bank.com', password: 'securepassword' },
     { id: 3, title: 'Social Media', username: 'user@social.com', password: 'mypassword' },
@@ -17,7 +19,11 @@ const Password = () => {
     { id: 8, title: 'Travel', username: 'user@travel.com', password: 'travelpassword' },
     { id: 9, title: 'Utilities', username: 'user@utilities.com', password: 'utilitiespassword' },
     { id: 10, title: 'Education', username: 'user@edu.com', password: 'educationpassword' },
-  ];
+  ]);
+
+  const addPassword = (newPassword) => {
+    setPasswords([...passwords, { id: passwords.length + 1, ...newPassword }]);
+  };
 
   const toggleShowPassword = (id) => {
     setVisiblePasswordIds((prevIds) =>
@@ -32,7 +38,7 @@ const Password = () => {
         <h1 className="text-xl font-bold text-white">Passwords ({passwords.length})</h1>
         {/* Search Bar */}
         <SearchBar />
-        <button className="bg-blue-500 text-white px-3 py-1 ml-3 rounded-lg">
+        <button onClick={() => setIsModalOpen(true)} className="bg-blue-500 text-white px-3 py-1 ml-3 rounded-lg">
           New Password
         </button>
       </div>
@@ -47,7 +53,7 @@ const Password = () => {
             </div>
               <div className="flex flex-col w-full">
                 <h2 className="text-xl font-bold">{password.title}</h2>
-                <p class>Username: {password.username}</p>
+                <p>Username: {password.username}</p>
 
                 <div className="flex items-center justify-between">
                   <p>Password: {visiblePasswordIds.includes(password.id) ? password.password : '••••••••'}</p>
@@ -60,6 +66,7 @@ const Password = () => {
           </div>
         ))}
       </div>
+      {isModalOpen && <Modal setIsModalOpen={setIsModalOpen} addPassword={addPassword} />}
     </div>
   );
 }
