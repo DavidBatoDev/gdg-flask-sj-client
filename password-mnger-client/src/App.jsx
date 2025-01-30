@@ -7,7 +7,6 @@ const App = () => {
 
   return (
       <div className="h-full w-full bg-gray-100">
-        <Navbar/>
         <Welcome/>
         <Passwords/>
       </div>

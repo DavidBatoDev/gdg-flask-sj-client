@@ -1,6 +1,6 @@
 const Welcome = () => {
   return (
-    <div className="flex flex-col gap-2 items-center justify-center h-full w-full bg-red-200 p-5">
+    <div className="flex flex-col gap-2 items-center justify-center min-h-screen w-full bg-red-200 p-5">
       <div className="flex bg-orange-400 p-5 rounded-lg">
         <div>
           <div className="border rounded-full w-20 h-20 flex items-center justify-center"> 

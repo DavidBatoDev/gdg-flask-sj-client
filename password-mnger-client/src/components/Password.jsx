@@ -29,7 +29,7 @@ const Password = () => {
     <div className="bg-gray-500 p-5 m-5 rounded-lg">
       {/* Header Part */}
       <div className="flex items-center justify-between mb-5">
-        <h1 className="text-3xl font-bold text-white">Passwords</h1>
+        <h1 className="text-xl font-bold text-white">Passwords ({passwords.length})</h1>
         {/* Search Bar */}
         <SearchBar />
         <button className="bg-blue-500 text-white px-3 py-1 ml-3 rounded-lg">
