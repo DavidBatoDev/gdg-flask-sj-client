@@ -3,6 +3,7 @@ import SearchBar from "./SearchBar.jsx";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import Modal from './Modal.jsx';
+import AddButton from './AddButton.jsx';
 
 const Password = () => {
   const [visiblePasswordIds, setVisiblePasswordIds] = useState([]);
@@ -38,9 +39,12 @@ const Password = () => {
         <h1 className="text-xl font-bold text-white">Passwords ({passwords.length})</h1>
         {/* Search Bar */}
         <SearchBar />
-        <button onClick={() => setIsModalOpen(true)} className="bg-blue-500 text-white px-3 py-1 ml-3 rounded-lg">
-          New Password
-        </button>
+        {/* Add Button */}
+        <div className="h-full w-[125px] flex items-center justify-end rounded-lg">
+          <AddButton setIsModalOpen={setIsModalOpen} /> 
+        </div>
+        
+
       </div>
       {/* Grid Part */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 text-black">
