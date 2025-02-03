@@ -23,7 +23,7 @@ const App = () => {
   };
 
   return (
-    <div className="h-full w-full bg-gray-100">
+    <div className="h-full w-full bg-white">
       <div className='flex'>
         <Welcome/>
         <GeneratePassword addPassword={addPassword} password={passwords} />

@@ -16,9 +16,9 @@ const StyledWrapper = styled.div`
   .Btn {
     display: flex;
     align-items: center;
-    justify-content: flex-start;
-    width: 45px;
-    height: 50px;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
     border: none;
     border-radius: 20px;
     cursor: pointer;
@@ -28,14 +28,23 @@ const StyledWrapper = styled.div`
     box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.199);
   }
 
+  .Btn:hover {
+    justify-content: flex-start;
+    transition-duration: justify-content 1s ease;
+  }
+
   /* plus sign */
   .sign {
     width: 100%;
     height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     font-size: 2em;
     color: white;
-    transition-duration: .3s;
+    transition-duration: .5s;
   }
+
   /* text */
   .text {
     position: absolute;
