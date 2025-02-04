@@ -20,7 +20,7 @@ const Passwords = ({ addPassword, passwords }) => {
   };
 
   return (
-    <div className="bg-gray-400 p-5 m-10 rounded-2xl border backdrop-blur-xl shadow-xl">
+    <div className="bg-gray-400 p-5 m-10 rounded-2xl  shadow-xl">
       {/* Header Part */}
       <div className="flex items-center justify-between mb-5">
         <h1 className="text-xl font-bold text-white">Passwords ({passwords.length})</h1>

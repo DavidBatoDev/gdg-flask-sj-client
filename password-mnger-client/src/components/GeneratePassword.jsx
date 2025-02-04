@@ -31,7 +31,7 @@ const GeneratePassword = ({ addPassword }) => {
   };
 
   return (
-    <div className="flex flex-col items-center space-y-6 mt-10 mb-20 p-5 ">
+    <div className="flex flex-col items-center gap-6 mt-10 mb-20 p-5 ">
 
       <div className="flex justify-between w-full sm:w-96 h-16 py-5 pl-3 bg-gray-100 border-b-4 border-blue-500 rounded-t-xl text-start shadow-inner relative overflow-hidden">
         <div className="flex items-center ">
