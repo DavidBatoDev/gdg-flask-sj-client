@@ -20,7 +20,7 @@ const Passwords = ({ addPassword, passwords }) => {
   };
 
   return (
-    <div className="bg-gray-500 p-5 m-10 rounded-2xl">
+    <div className="bg-gray-400 p-5 m-10 rounded-2xl border backdrop-blur-xl shadow-xl">
       {/* Header Part */}
       <div className="flex items-center justify-between mb-5">
         <h1 className="text-xl font-bold text-white">Passwords ({passwords.length})</h1>
@@ -35,9 +35,9 @@ const Passwords = ({ addPassword, passwords }) => {
           </button>
       </div>
       {/* Grid Part */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 text-black">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 text-black ">
         {passwords.map((password) => (
-          <div key={password.id} className="bg-white flex p-4 rounded-xl gap-4">
+          <div key={password.id} className="bg-white flex p-4 rounded-xl gap-4 border-2 border-blue-500 hover:bg-gray-200 transition duration-300">
             <div className="flex items-center">
               <div className="w-20 h-20 bg-blue-500 flex items-center justify-center rounded-lg text-white">
                 <span className="text-3xl font-bold">{getFirstLetter(password.title)}</span>

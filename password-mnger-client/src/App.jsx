@@ -4,6 +4,7 @@ import Welcome from './components/Welcome.jsx';
 import Passwords from './components/Password.jsx';
 import GeneratePassword from './components/GeneratePassword.jsx';
 import PasswordGeneratorText from './components/PasswordGeneratorText.jsx';
+import PasswordListText from './components/PasswordListText.jsx';
 
 const App = () => {
   const [passwords, setPasswords] = useState([
@@ -25,11 +26,12 @@ const App = () => {
 
   return (
     <div className="h-full w-full bg-white">
-      <div className='flex'>
+
         <Welcome/>
-        {/* <GeneratePassword addPassword={addPassword} password={passwords} /> */}
-      </div>
+
       <PasswordGeneratorText/>
+      <GeneratePassword addPassword={addPassword} password={passwords} />
+      <PasswordListText/>
       <Passwords addPassword={addPassword} passwords={passwords} />
     </div>
   );

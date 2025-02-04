@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCopy, faLock, faPlus } from '@fortawesome/free-solid-svg-icons';
+import { faCopy, faLock, faPlus, faRotate } from '@fortawesome/free-solid-svg-icons';
 import Modal from './Modal.jsx';
 
 const GeneratePassword = ({ addPassword }) => {
@@ -9,7 +9,6 @@ const GeneratePassword = ({ addPassword }) => {
   const [includeUppercase, setIncludeUppercase] = useState(true);
   const [includeNumbers, setIncludeNumbers] = useState(true);
   const [includeSpecialChars, setIncludeSpecialChars] = useState(true);
-  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const generatePassword = () => {
@@ -32,76 +31,71 @@ const GeneratePassword = ({ addPassword }) => {
   };
 
   return (
-    <div className="relative">
-      <button 
-        onClick={() => setIsDrawerOpen(!isDrawerOpen)} 
-        className="px-4 py-2 bg-blue-500 flex text-white rounded-md absolute top-3 right-2 z-10"
-      >
-        <FontAwesomeIcon icon={faLock} />
-      </button>
-      {isDrawerOpen && (
-        <div className='p-4 bg-white shadow-md rounded-md flex flex-col top-0 right-0 z-10'>
-          <h2 className="text-xl font-bold mb-4">Generate Password</h2>
-          <div className="mb-4">
-            <label className="block mb-2">Length:</label>
+    <div className="flex flex-col items-center space-y-6 mt-10 mb-20 p-5 ">
+
+      <div className="flex justify-between w-full sm:w-96 h-16 py-5 pl-3 bg-gray-100 border-b-4 border-blue-500 rounded-t-xl text-start shadow-inner relative overflow-hidden">
+        <div className="flex items-center ">
+          <p className="font-semibold text-xl ">{password}</p>
+        </div>
+        
+        <div className="flex items-center gap-3 absolute px-2 bg-gray-100 right-0 z-10">
+        <div className="absolute inset-y-0 -left-5 w-5 bg-gradient-to-r from-transparent to-gray-100  pointer-events-none"></div>
+          <FontAwesomeIcon icon={faPlus} size='xl' className="cursor-pointer hover:text-blue-500 transition duration-300" onClick={() => setIsModalOpen(true)} />
+          <FontAwesomeIcon icon={faCopy} size='xl' className="cursor-pointer hover:text-blue-500 transition duration-300" onClick={copyToClipboard} />
+          <FontAwesomeIcon icon={faRotate} size='xl' className='cursor-pointer hover:text-blue-500 transition duration-300' onClick={generatePassword}  />
+        </div>
+      </div>
+
+      <div className="p-6 bg-white shadow-md rounded-xl w-full sm:w-96 border backdrop-filter backdrop-blur-xl bg-opacity-10">
+        <h2 className="text-3xl font-semibold text-center mb-4">Generate Password</h2>
+        
+        <div className="space-y-3">
+          <div className="flex flex-col items-start">
+            <label>Length: {length}</label>
             <input 
-              type="number" 
+              type="range" 
               value={length} 
               onChange={(e) => setLength(e.target.value)} 
-              className="px-2 py-1 border rounded-md"
-              min="1"
+              className="slider w-full" 
+              min="8" 
+              max="50" 
             />
+
           </div>
-          <div className="mb-4">
-            <label className="block mb-2">
-              <input 
-                type="checkbox" 
-                checked={includeUppercase} 
-                onChange={(e) => setIncludeUppercase(e.target.checked)} 
-                className="mr-2"
-              />
-              Include Uppercase Letters
-            </label>
+          <div className="flex items-center space-x-2">
+            <input 
+              type="checkbox" 
+              checked={includeUppercase} 
+              onChange={(e) => setIncludeUppercase(e.target.checked)} 
+              className="form-checkbox"
+            />
+            <label>Include Uppercase Letters</label>
           </div>
-          <div className="mb-4">
-            <label className="block mb-2">
-              <input 
-                type="checkbox" 
-                checked={includeNumbers} 
-                onChange={(e) => setIncludeNumbers(e.target.checked)} 
-                className="mr-2"
-              />
-              Include Numbers
-            </label>
+          <div className="flex items-center space-x-2">
+            <input 
+              type="checkbox" 
+              checked={includeNumbers} 
+              onChange={(e) => setIncludeNumbers(e.target.checked)} 
+              className="form-checkbox"
+            />
+            <label>Include Numbers</label>
           </div>
-          <div className="mb-4">
-            <label className="block mb-2">
-              <input 
-                type="checkbox" 
-                checked={includeSpecialChars} 
-                onChange={(e) => setIncludeSpecialChars(e.target.checked)} 
-                className="mr-2"
-              />
-              Include Special Characters
-            </label>
+          <div className="flex items-center space-x-2">
+            <input 
+              type="checkbox" 
+              checked={includeSpecialChars} 
+              onChange={(e) => setIncludeSpecialChars(e.target.checked)} 
+              className="form-checkbox"
+            />
+            <label>Include Special Characters</label>
           </div>
-          <button 
-            onClick={generatePassword} 
-            className="px-4 py-2 bg-blue-500 text-white rounded-md"
-          >
-            Generate
-          </button>
-          {password && (
-            <div className="mt-4 p-2 bg-gray-200 rounded-md relative">
-              <p className="font-mono">{password}</p>
-              <div className='absolute top-1 right-0 flex gap-2 p-2'>
-                <FontAwesomeIcon icon={faPlus} className='cursor-pointer' onClick={() => {setIsModalOpen(true);}}/>
-                <FontAwesomeIcon icon={faCopy} className='cursor-pointer' onClick={copyToClipboard}/>
-              </div>
-            </div>
-          )}
+
         </div>
-      )}
+      </div>
+
+
+      
+      
       {isModalOpen && <Modal setIsModalOpen={setIsModalOpen} addPassword={addPassword} genPassword={password} />}
     </div>
   );
