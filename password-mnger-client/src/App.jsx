@@ -3,6 +3,7 @@ import Navbar from './components/Navbar.jsx';
 import Welcome from './components/Welcome.jsx';
 import Passwords from './components/Password.jsx';
 import GeneratePassword from './components/GeneratePassword.jsx';
+import PasswordGeneratorText from './components/PasswordGeneratorText.jsx';
 
 const App = () => {
   const [passwords, setPasswords] = useState([
@@ -28,6 +29,7 @@ const App = () => {
         <Welcome/>
         {/* <GeneratePassword addPassword={addPassword} password={passwords} /> */}
       </div>
+      <PasswordGeneratorText/>
       <Passwords addPassword={addPassword} passwords={passwords} />
     </div>
   );
