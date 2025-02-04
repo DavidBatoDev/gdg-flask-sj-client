@@ -12,49 +12,44 @@ const Modal = ({ setIsModalOpen, addPassword, genPassword }) => {
   };
 
   return (
-    <div className="fixed inset-0 z-10 bg-black bg-opacity-50 flex items-center justify-center">
-      <div className="bg-white p-5 rounded-lg shadow-lg w-full max-w-md">
-        <h2 className="text-2xl font-bold mb-4">Add New Password</h2>
-        <form onSubmit={handleSubmit}>
-          <div className="mb-4">
-            <label className="block text-gray-700">Title</label>
-            <input
-              type="text"
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
-              className="w-full p-2 border border-gray-300 rounded-lg"
-              required
-            />
-          </div>
-          <div className="mb-4">
-            <label className="block text-gray-700">Username</label>
-            <input
-              type="text"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-              className="w-full p-2 border border-gray-300 rounded-lg"
-              required
-            />
-          </div>
-          <div className="mb-4">
-            <label className="block text-gray-700">Password</label>
-            <input
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              className="w-full p-2 border border-gray-300 rounded-lg"
-              required
-            />
-          </div>
-          <div className="flex justify-end">
-            <button
-              type="button"
-              onClick={() => setIsModalOpen(false)}
-              className="bg-gray-500 text-white px-3 py-1 rounded-lg mr-2"
-            >
+    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+      <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-md">
+        <h2 className="text-xl font-bold mb-4">Add New Password</h2>
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <input 
+            type="text" 
+            placeholder="Title" 
+            value={title} 
+            onChange={(e) => setTitle(e.target.value)} 
+            className="w-full p-2 border border-gray-300 rounded-lg" 
+            required 
+          />
+          <input 
+            type="text" 
+            placeholder="Username" 
+            value={username} 
+            onChange={(e) => setUsername(e.target.value)} 
+            className="w-full p-2 border border-gray-300 rounded-lg" 
+            required 
+          />
+          <input 
+            type="password" 
+            placeholder="Password" 
+            value={password} 
+            onChange={(e) => setPassword(e.target.value)} 
+            className="w-full p-2 border border-gray-300 rounded-lg" 
+            required 
+          />
+          <div className="flex justify-end gap-2">
+            <button 
+              type="button" 
+              onClick={() => setIsModalOpen(false)} 
+              className="bg-gray-500 text-white px-4 py-2 rounded-lg hover:bg-gray-600 active:bg-gray-700">
               Cancel
             </button>
-            <button type="submit" className="bg-blue-500 text-white px-3 py-1 rounded-lg">
+            <button 
+              type="submit" 
+              className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 active:bg-blue-700">
               Save
             </button>
           </div>
@@ -62,6 +57,6 @@ const Modal = ({ setIsModalOpen, addPassword, genPassword }) => {
       </div>
     </div>
   );
-}
+};
 
 export default Modal;
