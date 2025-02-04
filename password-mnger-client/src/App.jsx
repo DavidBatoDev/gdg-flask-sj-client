@@ -26,7 +26,7 @@ const App = () => {
     <div className="h-full w-full bg-white">
       <div className='flex'>
         <Welcome/>
-        <GeneratePassword addPassword={addPassword} password={passwords} />
+        {/* <GeneratePassword addPassword={addPassword} password={passwords} /> */}
       </div>
       <Passwords addPassword={addPassword} passwords={passwords} />
     </div>
