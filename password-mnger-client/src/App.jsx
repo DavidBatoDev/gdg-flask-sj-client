@@ -5,6 +5,7 @@ import Passwords from './components/Password.jsx';
 import GeneratePassword from './components/GeneratePassword.jsx';
 import PasswordGeneratorText from './components/PasswordGeneratorText.jsx';
 import PasswordListText from './components/PasswordListText.jsx';
+import Footer from './components/Footer.jsx';
 
 const App = () => {
   const [passwords, setPasswords] = useState([
@@ -33,6 +34,7 @@ const App = () => {
       <GeneratePassword addPassword={addPassword} password={passwords} />
       <PasswordListText/>
       <Passwords addPassword={addPassword} passwords={passwords} />
+      <Footer/>
     </div>
   );
 }
