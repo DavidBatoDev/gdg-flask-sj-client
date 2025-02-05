@@ -38,7 +38,7 @@ const GeneratePassword = ({ addPassword }) => {
           <p className="font-semibold text-xl ">{password}</p>
         </div>
         
-        <div className="flex items-center gap-3 absolute px-2 bg-gray-100 right-0 z-10">
+        <div className="flex items-center h-5/6 gap-3 absolute px-2 bg-gray-100 right-0 top-1 z-10">
         <div className="absolute inset-y-0 -left-5 w-5 bg-gradient-to-r from-transparent to-gray-100  pointer-events-none"></div>
           <FontAwesomeIcon icon={faPlus} size='xl' className="cursor-pointer hover:text-blue-500 transition duration-300" onClick={() => setIsModalOpen(true)} />
           <FontAwesomeIcon icon={faCopy} size='xl' className="cursor-pointer hover:text-blue-500 transition duration-300" onClick={copyToClipboard} />

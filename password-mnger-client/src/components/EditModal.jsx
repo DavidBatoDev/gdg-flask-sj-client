@@ -1,23 +1,31 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash} from '@fortawesome/free-solid-svg-icons';
 
-const Modal = ({ setIsModalOpen, addPassword, genPassword }) => {
+const EditModal = ({ setIsModalOpen, updatePassword, passwordToEdit }) => {
   const [title, setTitle] = useState('');
   const [username, setUsername] = useState('');
-  const [password, setPassword] = useState(genPassword || '');
+  const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
+
+  useEffect(() => {
+    if (passwordToEdit) {
+      setTitle(passwordToEdit.title);
+      setUsername(passwordToEdit.username);
+      setPassword(passwordToEdit.password);
+    }
+  }, [passwordToEdit]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    addPassword({ title, username, password });
+    updatePassword(passwordToEdit.id, { title, username, password });
     setIsModalOpen(false);
   };
 
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
       <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-md">
-        <h2 className="text-xl font-bold mb-4">Add New Password</h2>
+        <h2 className="text-xl font-bold mb-4">Edit Password</h2>
         <form onSubmit={handleSubmit} className="space-y-4">
           <input 
             type="text" 
@@ -49,7 +57,7 @@ const Modal = ({ setIsModalOpen, addPassword, genPassword }) => {
               onClick={() => setShowPassword(!showPassword)} 
               className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-500"
             >
-              {showPassword ?  <FontAwesomeIcon icon={faEyeSlash} /> : <FontAwesomeIcon icon={faEye}/>}
+              {showPassword ? <FontAwesomeIcon icon={faEyeSlash} /> : <FontAwesomeIcon icon={faEye}/>}
             </button>
           </div>
           <div className="flex justify-end gap-2">
@@ -71,4 +79,4 @@ const Modal = ({ setIsModalOpen, addPassword, genPassword }) => {
   );
 };
 
-export default Modal;
+export default EditModal;

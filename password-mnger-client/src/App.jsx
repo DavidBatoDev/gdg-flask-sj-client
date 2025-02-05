@@ -25,16 +25,33 @@ const App = () => {
     setPasswords([...passwords, { id: passwords.length + 1, ...newPassword }]);
   };
 
+  const deletePassword = (id) => {
+    setPasswords(passwords.filter((password) => password.id !== id));
+  };
+
+  const updatePassword = (id, updatedPassword) => {
+    setPasswords(
+      passwords.map((password) =>
+        password.id === id ? { ...password, ...updatedPassword } : password
+      )
+    );
+  }
+
   return (
     <div className="h-full w-full bg-white">
 
-        <Welcome/>
-
+      <Welcome/>
       <PasswordGeneratorText/>
       <GeneratePassword addPassword={addPassword} password={passwords} />
       <PasswordListText/>
-      <Passwords addPassword={addPassword} passwords={passwords} />
+      <Passwords 
+        addPassword={addPassword} 
+        deletePassword={deletePassword} 
+        passwords={passwords} 
+        updatePassword={updatePassword} 
+      />
       <Footer/>
+
     </div>
   );
 }
