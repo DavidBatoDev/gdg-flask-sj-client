@@ -64,37 +64,41 @@ const Passwords = ({ addPassword, deletePassword, passwords, updatePassword }) =
       </div>
       {/* Grid Part */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 text-black ">
-        {passwords.map((password) => (
-          <div key={password.id} className={`bg-white flex p-4 rounded-xl gap-4 border-2 border-blue-500 ${editMode ? 'hover:border-rose-700' : 'hover:border-black'} hover:border-black transition duration-300 relative`}>
-            {/* Edit Mode is true */}
-            {editMode && 
-            <div className="absolute top-2 right-3 flex gap-2 ">   
-              <button className="text-blue-500 hover:text-rose-700 active:scale-90 transition-all duration-200" 
-                onClick={() => handleEditClick(password)}>
-                <FontAwesomeIcon icon={faPenToSquare} size='lg'/>
-              </button>
-              <button className="text-blue-500 hover:text-rose-700 active:scale-90 transition-all duration-200" 
-                onClick={() => handleDeleteClick(password)}>
-                <FontAwesomeIcon icon={faTrash} size='lg'/>
-              </button>
-            </div>}
-            <div className="flex items-center ">
-              <div className="w-20 h-20 bg-blue-500 flex items-center justify-center rounded-lg text-white">
-                <span className="text-3xl font-bold">{getFirstLetter(password.title)}</span>
-              </div>
-            </div>
-            <div className="flex flex-col w-full py-2">
-              <h2 className="text-xl font-bold">{password.title}</h2>
-              <p>{password.username}</p>
-              <div className="flex items-center justify-between">
-                <p className='font-semibold'>{visiblePasswordIds.includes(password.id) ? password.password : '••••••••'}</p>
-                <button onClick={() => toggleShowPassword(password.id)} className="text-blue-500 flex items-center justify-center">
-                  {visiblePasswordIds.includes(password.id) ? <FontAwesomeIcon icon={faEyeSlash} /> : <FontAwesomeIcon icon={faEye} />}
+        {passwords.length === 0 ? (
+          <p className="text-black text-center col-span-full p-10 font-bold">No passwords saved. Add new passwords.</p>
+        ) : (
+          passwords.map((password) => (
+            <div key={password.id} className={`bg-white flex p-4 rounded-xl gap-4 border-2 border-blue-500 ${editMode ? 'hover:border-rose-700' : 'hover:border-black'} hover:border-black transition duration-300 relative`}>
+              {/* Edit Mode is true */}
+              {editMode && 
+              <div className="absolute top-2 right-3 flex gap-2 ">   
+                <button className="text-blue-500 hover:text-rose-700 active:scale-90 transition-all duration-200" 
+                  onClick={() => handleEditClick(password)}>
+                  <FontAwesomeIcon icon={faPenToSquare} size='lg'/>
                 </button>
+                <button className="text-blue-500 hover:text-rose-700 active:scale-90 transition-all duration-200" 
+                  onClick={() => handleDeleteClick(password)}>
+                  <FontAwesomeIcon icon={faTrash} size='lg'/>
+                </button>
+              </div>}
+              <div className="flex items-center ">
+                <div className="w-20 h-20 bg-blue-500 flex items-center justify-center rounded-lg text-white">
+                  <span className="text-3xl font-bold">{getFirstLetter(password.title)}</span>
+                </div>
+              </div>
+              <div className="flex flex-col w-full py-2">
+                <h2 className="text-xl font-bold">{password.title}</h2>
+                <p>{password.username}</p>
+                <div className="flex items-center justify-between">
+                  <p className='font-semibold'>{visiblePasswordIds.includes(password.id) ? password.password : '••••••••'}</p>
+                  <button onClick={() => toggleShowPassword(password.id)} className="text-blue-500 flex items-center justify-center">
+                    {visiblePasswordIds.includes(password.id) ? <FontAwesomeIcon icon={faEyeSlash} /> : <FontAwesomeIcon icon={faEye} />}
+                  </button>
+                </div>
               </div>
             </div>
-          </div>
-        ))}
+          ))
+        )}
       </div>
       {isModalOpen && (
         <Modal 
