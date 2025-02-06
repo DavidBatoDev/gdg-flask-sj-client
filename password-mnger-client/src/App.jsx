@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import axios from 'axios';
 import Navbar from './components/Navbar.jsx';
 import Welcome from './components/Welcome.jsx';
 import Passwords from './components/Password.jsx';
@@ -8,34 +9,50 @@ import PasswordListText from './components/PasswordListText.jsx';
 import Footer from './components/Footer.jsx';
 
 const App = () => {
-  const [passwords, setPasswords] = useState([
-    { id: 1, title: 'Email', username: 'user@example.com', password: 'password123' },
-    { id: 2, title: 'Bank', username: 'user@bank.com', password: 'securepassword' },
-    { id: 3, title: 'Social Media', username: 'user@social.com', password: 'mypassword' },
-    { id: 4, title: 'Work', username: 'user@user.com', password: 'workpassword' },
-    { id: 5, title: 'Shopping', username: 'user@shop.com', password: 'shoppingpassword' },
-    { id: 6, title: 'Gaming', username: 'user@gaming.com', password: 'gamingpassword' },
-    { id: 7, title: 'Streaming', username: 'user@stream.com', password: 'streampassword' },
-    { id: 8, title: 'Travel', username: 'user@travel.com', password: 'travelpassword' },
-    { id: 9, title: 'Utilities', username: 'user@utilities.com', password: 'utilitiespassword' },
-    { id: 10, title: 'Education', username: 'user@edu.com', password: 'educationpassword' },
-  ]);
+  const [passwords, setPasswords] = useState([]);
 
+  // Fetch passwords from Flask backend
+  useEffect(() => {
+    axios.get('http://127.0.0.1:5000/passwords')
+      .then(response => setPasswords(response.data))
+      .catch(error => console.error('Error fetching passwords:', error));
+  }, []);
+
+  // Add a new password
   const addPassword = (newPassword) => {
-    setPasswords([...passwords, { id: passwords.length + 1, ...newPassword }]);
+    axios.post('http://127.0.0.1:5000/passwords', newPassword)
+      .then(() => {
+        // Fetch the updated list of passwords
+        return axios.get('http://127.0.0.1:5000/passwords');
+      })
+      .then(response => {
+        setPasswords(response.data); // Update the state with the new list of passwords
+      })
+      .catch(error => console.error('Error adding password:', error));
   };
 
+  // Delete a password
   const deletePassword = (id) => {
-    setPasswords(passwords.filter((password) => password.id !== id));
+    axios.delete(`http://127.0.0.1:5000/passwords/${id}`)
+      .then(() => {
+        setPasswords(passwords.filter(password => password.id !== id));
+      })
+      .catch(error => console.error('Error deleting password:', error));
   };
 
+  // Update a password
   const updatePassword = (id, updatedPassword) => {
-    setPasswords(
-      passwords.map((password) =>
-        password.id === id ? { ...password, ...updatedPassword } : password
-      )
-    );
-  }
+    axios.put(`http://127.0.0.1:5000/passwords/${id}`, updatedPassword)
+      .then(() => {
+        setPasswords(
+          passwords.map(password => 
+            password.id === id ? { ...password, ...updatedPassword } : password
+          )
+        );
+      })
+      .catch(error => console.error('Error updating password:', error));
+  };
+
 
   return (
     <div className="h-full w-full bg-white">

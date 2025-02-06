@@ -21,7 +21,7 @@ const Passwords = ({ addPassword, deletePassword, passwords, updatePassword }) =
   };
 
   const getFirstLetter = (title) => {
-    return title.charAt(0).toUpperCase();
+    return title ? title.charAt(0).toUpperCase() : '';
   };
 
   const handleDeleteClick = (password) => {
