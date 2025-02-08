@@ -56,13 +56,13 @@ const App = () => {
 
   return (
     <Router>
-      <div className="h-full w-full bg-white">
+      <div className="h-screen w-full bg-white">
         <Routes>
           <Route path="/" element={<Welcome />} />
           <Route path="/main" element={
             <>
-              <PasswordGeneratorText />
-              <GeneratePassword addPassword={addPassword} password={passwords} />
+              {/* <PasswordGeneratorText /> */}
+              {/* <GeneratePassword addPassword={addPassword} password={passwords} /> */}
               <PasswordListText />
               <Passwords 
                 addPassword={addPassword} 
