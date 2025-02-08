@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import SearchBar from "./SearchBar.jsx";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEye, faEyeSlash, faCirclePlus, faSliders, faTrash, faPenToSquare } from '@fortawesome/free-solid-svg-icons';
+import { faEye, faEyeSlash, faCirclePlus, faSliders, faTrash, faPenToSquare, faArrowsRotate } from '@fortawesome/free-solid-svg-icons';
 import Modal from './Modal.jsx';
 import PasswordListText from './PasswordListText.jsx';
 
@@ -11,7 +11,7 @@ import EditModal from './EditModal.jsx';
 const Passwords = ({ addPassword, deletePassword, passwords, updatePassword }) => {
   const [visiblePasswordIds, setVisiblePasswordIds] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [editMode, setEditMode] = useState(false);
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [passwordToDelete, setPasswordToDelete] = useState(null);
   const [passwordToEdit, setPasswordToEdit] = useState(null);
 
@@ -38,7 +38,7 @@ const Passwords = ({ addPassword, deletePassword, passwords, updatePassword }) =
 
   const handleEditClick = (password) => {
     setPasswordToEdit(password);
-    setIsModalOpen(true);
+    setIsEditModalOpen(true);
   };
 
   return (
@@ -62,10 +62,16 @@ const Passwords = ({ addPassword, deletePassword, passwords, updatePassword }) =
             <FontAwesomeIcon icon={faSliders} size='lg' className='text-white'/>
           </button> */}
 
+          {/* Generate Password Button
+          <button className="px-4 py-2 bg-blue-500 text-white rounded-xl font-bold shadow-md hover:bg-blue-600 transition duration-300"
+            onClick={() => setIsModalOpen(true)}>
+              <FontAwesomeIcon icon={faArrowsRotate} size='lg' className='mr-2'/> Generate
+          </button> */}
+
           {/* Add Button */}
           <button className="px-4 py-2 bg-blue-500 text-white rounded-xl font-bold shadow-md hover:bg-blue-600 transition duration-300"
             onClick={() => setIsModalOpen(true)}>
-              <FontAwesomeIcon icon={faCirclePlus} size='lg' className='mr-2'/> Add Password
+              <FontAwesomeIcon icon={faCirclePlus} size='lg' className='mr-2'/> Add
           </button>
         </div>
       </div>
@@ -75,7 +81,7 @@ const Passwords = ({ addPassword, deletePassword, passwords, updatePassword }) =
           <p className="text-black text-center col-span-full p-10 font-bold">No passwords saved. Add new passwords.</p>
         ) : (
           passwords.map((password) => (
-            <div key={password.id} className={`bg-white flex p-4 rounded-xl gap-4 border-2 border-blue-500 ${editMode ? 'hover:border-rose-700' : 'hover:border-black'} hover:border-black transition duration-300 relative`}>
+            <div key={password.id} className={`bg-white flex p-4 rounded-xl gap-4 border-2 border-blue-500  hover:border-black transition duration-300 relative`}>
 
               <div className="absolute top-2 right-3 flex gap-2 ">   
                 <button className="text-blue-500 hover:text-rose-700 active:scale-90 transition-all duration-200" 
@@ -117,8 +123,8 @@ const Passwords = ({ addPassword, deletePassword, passwords, updatePassword }) =
 
       {passwordToEdit && (
         <EditModal 
-          setIsModalOpen={(state) => {
-            setIsModalOpen(state);
+          setIsEditModalOpen={(state) => {
+            setIsEditModalOpen(state);
             if (!state) setPasswordToEdit(null); // Reset after closing
           }} 
           updatePassword={updatePassword} 
