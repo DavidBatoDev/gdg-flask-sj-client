@@ -1,6 +1,8 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGoogle } from '@fortawesome/free-brands-svg-icons'; 
+import { Link } from 'react-router-dom';
+
 
 import { motion } from "framer-motion";
 
@@ -32,9 +34,11 @@ const Welcome = () => {
           <p className="text-xl mb-3 ">
             SecurePass helps you generate and manage your passwords securely and efficiently.
           </p>
-          <button className="px-8 py-3 mt-3 bg-blue-500 text-white font-bold    rounded-lg shadow-md hover:bg-blue-600 transition duration-300">
-            Get Started
-          </button>
+          <Link to="/main">
+            <button className="px-8 py-3 mt-3 bg-blue-500 text-white font-bold    rounded-lg shadow-md hover:bg-blue-600 transition duration-300">
+              Get Started
+            </button>
+          </Link>
         </div>
       </div>
 
