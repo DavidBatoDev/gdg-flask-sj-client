@@ -43,7 +43,7 @@ const Passwords = ({ addPassword, deletePassword, passwords, updatePassword }) =
 
   return (
     
-    <div className="bg-gray-400 p-5 m-10 min-h-[400px]  rounded-2xl shadow-xl">
+    <div className="bg-gray-400 p-5 mx-10 mb-20 h-[530px] overflow-y-scroll rounded-2xl shadow-xl">
 
       {/* Header Part */}
       <div className="flex items-center justify-between mb-5">
