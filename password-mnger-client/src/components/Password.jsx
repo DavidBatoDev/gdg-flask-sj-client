@@ -1,8 +1,9 @@
 import { useState } from 'react';
 import SearchBar from "./SearchBar.jsx";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEye, faEyeSlash, faCirclePlus, faSliders, faTrash, faPenToSquare } from '@fortawesome/free-solid-svg-icons';
+import { faEye, faEyeSlash, faCirclePlus, faSliders, faTrash, faPenToSquare, faArrowsRotate } from '@fortawesome/free-solid-svg-icons';
 import Modal from './Modal.jsx';
+import PasswordListText from './PasswordListText.jsx';
 
 import ConfirmationModal from './ConfirmationModal.jsx';
 import EditModal from './EditModal.jsx';
@@ -10,7 +11,7 @@ import EditModal from './EditModal.jsx';
 const Passwords = ({ addPassword, deletePassword, passwords, updatePassword }) => {
   const [visiblePasswordIds, setVisiblePasswordIds] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [editMode, setEditMode] = useState(false);
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [passwordToDelete, setPasswordToDelete] = useState(null);
   const [passwordToEdit, setPasswordToEdit] = useState(null);
 
@@ -37,28 +38,40 @@ const Passwords = ({ addPassword, deletePassword, passwords, updatePassword }) =
 
   const handleEditClick = (password) => {
     setPasswordToEdit(password);
-    setIsModalOpen(true);
+    setIsEditModalOpen(true);
   };
 
   return (
-    <div className="bg-gray-400 p-5 m-10 rounded-2xl shadow-xl">
+    
+    <div className="bg-gray-400 p-5 m-10 min-h-full rounded-2xl shadow-xl">
+
+      {/* <PasswordListText  /> */}
+
       {/* Header Part */}
       <div className="flex items-center justify-between mb-5">
         <h1 className="text-xl font-bold text-white">Passwords ({passwords.length})</h1>
         {/* Search Bar */}
         <SearchBar />
         <div className='flex gap-2'>
-          {/* Edit Button */}
+
+          {/* Edit Button
           <button className={`px-4 py-2 text-white rounded-xl font-bold shadow-md transition duration-300 
                 ${editMode ? 'bg-rose-700' : 'bg-rose-500'} 
                  hover:outline hover:outline-1 hover:duration-300 hover:transition-all active:transform active:scale-90`}
                 onClick={() => setEditMode(!editMode)}>
             <FontAwesomeIcon icon={faSliders} size='lg' className='text-white'/>
-          </button>
+          </button> */}
+
+          {/* Generate Password Button
+          <button className="px-4 py-2 bg-blue-500 text-white rounded-xl font-bold shadow-md hover:bg-blue-600 transition duration-300"
+            onClick={() => setIsModalOpen(true)}>
+              <FontAwesomeIcon icon={faArrowsRotate} size='lg' className='mr-2'/> Generate
+          </button> */}
+
           {/* Add Button */}
           <button className="px-4 py-2 bg-blue-500 text-white rounded-xl font-bold shadow-md hover:bg-blue-600 transition duration-300"
             onClick={() => setIsModalOpen(true)}>
-              <FontAwesomeIcon icon={faCirclePlus} size='lg' className='mr-2'/> Add Password
+              <FontAwesomeIcon icon={faCirclePlus} size='lg' className='mr-2'/> Add
           </button>
         </div>
       </div>
@@ -68,9 +81,8 @@ const Passwords = ({ addPassword, deletePassword, passwords, updatePassword }) =
           <p className="text-black text-center col-span-full p-10 font-bold">No passwords saved. Add new passwords.</p>
         ) : (
           passwords.map((password) => (
-            <div key={password.id} className={`bg-white flex p-4 rounded-xl gap-4 border-2 border-blue-500 ${editMode ? 'hover:border-rose-700' : 'hover:border-black'} hover:border-black transition duration-300 relative`}>
-              {/* Edit Mode is true */}
-              {editMode && 
+            <div key={password.id} className={`bg-white flex p-4 rounded-xl gap-4 border-2 border-blue-500  hover:border-black transition duration-300 relative`}>
+
               <div className="absolute top-2 right-3 flex gap-2 ">   
                 <button className="text-blue-500 hover:text-rose-700 active:scale-90 transition-all duration-200" 
                   onClick={() => handleEditClick(password)}>
@@ -80,7 +92,7 @@ const Passwords = ({ addPassword, deletePassword, passwords, updatePassword }) =
                   onClick={() => handleDeleteClick(password)}>
                   <FontAwesomeIcon icon={faTrash} size='lg'/>
                 </button>
-              </div>}
+              </div>
               <div className="flex items-center ">
                 <div className="w-20 h-20 bg-blue-500 flex items-center justify-center rounded-lg text-white">
                   <span className="text-3xl font-bold">{getFirstLetter(password.title)}</span>
@@ -111,8 +123,8 @@ const Passwords = ({ addPassword, deletePassword, passwords, updatePassword }) =
 
       {passwordToEdit && (
         <EditModal 
-          setIsModalOpen={(state) => {
-            setIsModalOpen(state);
+          setIsEditModalOpen={(state) => {
+            setIsEditModalOpen(state);
             if (!state) setPasswordToEdit(null); // Reset after closing
           }} 
           updatePassword={updatePassword} 

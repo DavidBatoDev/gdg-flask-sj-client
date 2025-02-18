@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Navbar from './components/Navbar.jsx';
 import Welcome from './components/Welcome.jsx';
 import Passwords from './components/Password.jsx';
@@ -53,23 +54,28 @@ const App = () => {
       .catch(error => console.error('Error updating password:', error));
   };
 
-
   return (
-    <div className="h-full w-full bg-white">
-
-      <Welcome/>
-      <PasswordGeneratorText/>
-      <GeneratePassword addPassword={addPassword} password={passwords} />
-      <PasswordListText/>
-      <Passwords 
-        addPassword={addPassword} 
-        deletePassword={deletePassword} 
-        passwords={passwords} 
-        updatePassword={updatePassword} 
-      />
-      <Footer/>
-
-    </div>
+    <Router>
+      <div className="h-screen w-full bg-white">
+        <Routes>
+          <Route path="/" element={<Welcome />} />
+          <Route path="/main" element={
+            <>
+              {/* <PasswordGeneratorText /> */}
+              {/* <GeneratePassword addPassword={addPassword} password={passwords} /> */}
+              <PasswordListText />
+              <Passwords 
+                addPassword={addPassword} 
+                deletePassword={deletePassword} 
+                passwords={passwords} 
+                updatePassword={updatePassword} 
+              />
+              <Footer />
+            </>
+          } />
+        </Routes>
+      </div>
+    </Router>
   );
 }
 

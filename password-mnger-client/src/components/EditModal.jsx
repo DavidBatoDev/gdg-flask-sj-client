@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash} from '@fortawesome/free-solid-svg-icons';
 
-const EditModal = ({ setIsModalOpen, updatePassword, passwordToEdit }) => {
+const EditModal = ({ setIsEditModalOpen, updatePassword, passwordToEdit }) => {
   const [title, setTitle] = useState('');
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -19,7 +19,7 @@ const EditModal = ({ setIsModalOpen, updatePassword, passwordToEdit }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     updatePassword(passwordToEdit.id, { title, username, password });
-    setIsModalOpen(false);
+    setIsEditModalOpen(false);
   };
 
   return (
@@ -63,7 +63,7 @@ const EditModal = ({ setIsModalOpen, updatePassword, passwordToEdit }) => {
           <div className="flex justify-end gap-2">
             <button 
               type="button" 
-              onClick={() => setIsModalOpen(false)} 
+              onClick={() => setIsEditModalOpen(false)} 
               className="bg-gray-500 text-white px-4 py-2 rounded-lg hover:bg-gray-600 active:bg-gray-700">
               Cancel
             </button>
