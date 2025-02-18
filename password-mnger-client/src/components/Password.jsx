@@ -43,9 +43,7 @@ const Passwords = ({ addPassword, deletePassword, passwords, updatePassword }) =
 
   return (
     
-    <div className="bg-gray-400 p-5 m-10 min-h-full rounded-2xl shadow-xl">
-
-      {/* <PasswordListText  /> */}
+    <div className="bg-gray-400 p-5 m-10 min-h-[400px]  rounded-2xl shadow-xl">
 
       {/* Header Part */}
       <div className="flex items-center justify-between mb-5">
@@ -53,22 +51,6 @@ const Passwords = ({ addPassword, deletePassword, passwords, updatePassword }) =
         {/* Search Bar */}
         <SearchBar />
         <div className='flex gap-2'>
-
-          {/* Edit Button
-          <button className={`px-4 py-2 text-white rounded-xl font-bold shadow-md transition duration-300 
-                ${editMode ? 'bg-rose-700' : 'bg-rose-500'} 
-                 hover:outline hover:outline-1 hover:duration-300 hover:transition-all active:transform active:scale-90`}
-                onClick={() => setEditMode(!editMode)}>
-            <FontAwesomeIcon icon={faSliders} size='lg' className='text-white'/>
-          </button> */}
-
-          {/* Generate Password Button
-          <button className="px-4 py-2 bg-blue-500 text-white rounded-xl font-bold shadow-md hover:bg-blue-600 transition duration-300"
-            onClick={() => setIsModalOpen(true)}>
-              <FontAwesomeIcon icon={faArrowsRotate} size='lg' className='mr-2'/> Generate
-          </button> */}
-
-          {/* Add Button */}
           <button className="px-4 py-2 bg-blue-500 text-white rounded-xl font-bold shadow-md hover:bg-blue-600 transition duration-300"
             onClick={() => setIsModalOpen(true)}>
               <FontAwesomeIcon icon={faCirclePlus} size='lg' className='mr-2'/> Add

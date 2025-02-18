@@ -1,57 +1,87 @@
 import { useState, useEffect } from 'react';
-import axios from 'axios';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import Navbar from './components/Navbar.jsx';
 import Welcome from './components/Welcome.jsx';
 import Passwords from './components/Password.jsx';
-import GeneratePassword from './components/GeneratePassword.jsx';
-import PasswordGeneratorText from './components/PasswordGeneratorText.jsx';
 import PasswordListText from './components/PasswordListText.jsx';
 import Footer from './components/Footer.jsx';
 
 const App = () => {
   const [passwords, setPasswords] = useState([]);
+  const BASE_URL = 'http://127.0.0.1:5000/passwords';
 
-  // Fetch passwords from Flask backend
+  // Fetch passwords from Flask backend using async/await
   useEffect(() => {
-    axios.get('http://127.0.0.1:5000/passwords')
-      .then(response => setPasswords(response.data))
-      .catch(error => console.error('Error fetching passwords:', error));
+    const fetchPasswords = async () => {
+      try {
+        const response = await fetch(BASE_URL);
+        if (!response.ok) throw new Error('Network response was not ok');
+        
+        const data = await response.json();
+        setPasswords(data);
+      } catch (error) {
+        console.error('Error fetching passwords:', error);
+      }
+    };
+
+    fetchPasswords();
   }, []);
 
-  // Add a new password
-  const addPassword = (newPassword) => {
-    axios.post('http://127.0.0.1:5000/passwords', newPassword)
-      .then(() => {
-        // Fetch the updated list of passwords
-        return axios.get('http://127.0.0.1:5000/passwords');
-      })
-      .then(response => {
-        setPasswords(response.data); // Update the state with the new list of passwords
-      })
-      .catch(error => console.error('Error adding password:', error));
+  // Add a new password using async/await
+  const addPassword = async (newPassword) => {
+    try {
+      const response = await fetch(BASE_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(newPassword)
+      });
+
+      if (!response.ok) throw new Error('Error adding password');
+
+      // Fetch the updated list of passwords
+      const updatedResponse = await fetch(BASE_URL);
+      if (!updatedResponse.ok) throw new Error('Error fetching passwords');
+
+      const data = await updatedResponse.json();
+      setPasswords(data);
+    } catch (error) {
+      console.error('Error adding password:', error);
+    }
   };
 
-  // Delete a password
-  const deletePassword = (id) => {
-    axios.delete(`http://127.0.0.1:5000/passwords/${id}`)
-      .then(() => {
-        setPasswords(passwords.filter(password => password.id !== id));
-      })
-      .catch(error => console.error('Error deleting password:', error));
+  // Delete a password using async/await
+  const deletePassword = async (id) => {
+    try {
+      const response = await fetch(`${BASE_URL}/${id}`, { method: 'DELETE' });
+
+      if (!response.ok) throw new Error('Error deleting password');
+
+      // Update the local state by filtering out the deleted password
+      setPasswords(prevPasswords => prevPasswords.filter(password => password.id !== id));
+    } catch (error) {
+      console.error('Error deleting password:', error);
+    }
   };
 
-  // Update a password
-  const updatePassword = (id, updatedPassword) => {
-    axios.put(`http://127.0.0.1:5000/passwords/${id}`, updatedPassword)
-      .then(() => {
-        setPasswords(
-          passwords.map(password => 
-            password.id === id ? { ...password, ...updatedPassword } : password
-          )
-        );
-      })
-      .catch(error => console.error('Error updating password:', error));
+  // Update a password using async/await
+  const updatePassword = async (id, updatedPassword) => {
+    try {
+      const response = await fetch(`${BASE_URL}/${id}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(updatedPassword)
+      });
+
+      if (!response.ok) throw new Error('Error updating password');
+
+      // Update local state with the updated password information
+      setPasswords(prevPasswords =>
+        prevPasswords.map(password =>
+          password.id === id ? { ...password, ...updatedPassword } : password
+        )
+      );
+    } catch (error) {
+      console.error('Error updating password:', error);
+    }
   };
 
   return (
@@ -61,8 +91,6 @@ const App = () => {
           <Route path="/" element={<Welcome />} />
           <Route path="/main" element={
             <>
-              {/* <PasswordGeneratorText /> */}
-              {/* <GeneratePassword addPassword={addPassword} password={passwords} /> */}
               <PasswordListText />
               <Passwords 
                 addPassword={addPassword} 
@@ -77,6 +105,6 @@ const App = () => {
       </div>
     </Router>
   );
-}
+};
 
 export default App;
