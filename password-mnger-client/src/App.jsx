@@ -7,13 +7,13 @@ import Footer from './components/Footer.jsx';
 
 const App = () => {
   const [passwords, setPasswords] = useState([]);
-  const BASE_URL = 'http://127.0.0.1:5000/passwords';
+  const BASE_URL = 'http://127.0.0.1:5000';
 
   // Fetch passwords from Flask backend using async/await
   useEffect(() => {
     const fetchPasswords = async () => {
       try {
-        const response = await fetch(BASE_URL);
+        const response = await fetch(BASE_URL + '/passwords');
         if (!response.ok) throw new Error('Network response was not ok');
         
         const data = await response.json();
@@ -29,7 +29,7 @@ const App = () => {
   // Add a new password using async/await
   const addPassword = async (newPassword) => {
     try {
-      const response = await fetch(BASE_URL, {
+      const response = await fetch(BASE_URL + '/password', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(newPassword)
@@ -38,7 +38,7 @@ const App = () => {
       if (!response.ok) throw new Error('Error adding password');
 
       // Fetch the updated list of passwords
-      const updatedResponse = await fetch(BASE_URL);
+      const updatedResponse = await fetch(BASE_URL + '/passwords');
       if (!updatedResponse.ok) throw new Error('Error fetching passwords');
 
       const data = await updatedResponse.json();
@@ -51,7 +51,7 @@ const App = () => {
   // Delete a password using async/await
   const deletePassword = async (id) => {
     try {
-      const response = await fetch(`${BASE_URL}/${id}`, { method: 'DELETE' });
+      const response = await fetch(`${BASE_URL}/passwords/${id}`, { method: 'DELETE' });
 
       if (!response.ok) throw new Error('Error deleting password');
 
@@ -65,7 +65,7 @@ const App = () => {
   // Update a password using async/await
   const updatePassword = async (id, updatedPassword) => {
     try {
-      const response = await fetch(`${BASE_URL}/${id}`, {
+      const response = await fetch(`${BASE_URL}/passwords/${id}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(updatedPassword)
