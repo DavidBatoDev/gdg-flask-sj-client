@@ -29,7 +29,7 @@ const App = () => {
   // Add a new password using async/await
   const addPassword = async (newPassword) => {
     try {
-      const response = await fetch(BASE_URL + '/password', {
+      const response = await fetch(BASE_URL + '/passwords', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(newPassword)
